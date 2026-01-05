@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday Sreesha</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pista1: #9fcbb3;
+      --pista2: #cfe8db;
+      --pista3: #eaf6f0;
+      --card: rgba(255, 255, 255, 0.92);
+      --text: #1f3d2b;
+      --btn: #6fbf9a;
+      --btn2: #9fd6bd;
+    }
+
+    /* 🌿 Ambient background motion */
+    @keyframes ambientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Lora', serif;
+      background: linear-gradient(135deg, var(--pista1), var(--pista2), var(--pista3));
+      background-size: 200% 200%;
+      animation: ambientShift 30s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    /* 💓 Card breathing animation */
+    @keyframes breathe {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.01); }
+      100% { transform: scale(1); }
+    }
+
+    .card {
+      width: min(92vw, 680px);
+      height: min(92vh, 760px);
+      padding: clamp(18px, 3vh, 32px);
+      background: var(--card);
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: breathe 8s ease-in-out infinite;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: clamp(8px, 2vh, 16px);
+    }
+
+    p {
+      font-size: clamp(1rem, 2.6vw, 1.25rem);
+      line-height: 1.6;
+      margin: clamp(8px, 1.8vh, 14px) 0;
+    }
+
+    .footer {
+      font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+      margin-top: clamp(10px, 2vh, 20px);
+    }
+
+    .buttons {
+      margin-top: 28px;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: clamp(8px, 2vh, 14px) clamp(18px, 4vw, 28px);
+      font-size: clamp(0.9rem, 2.4vw, 1.1rem);
+      border-radius: 26px;
+      background: var(--btn);
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    /* ✨ Button tap feedback */
+    button:active {
+      transform: scale(0.96);
+    }
+
+    button.secondary {
+      background: var(--btn2);
+      color: #1f3d2b;
+    }
+
+    button.close {
+      background: #e07a7a;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    a {
+      color: #2f6f4f;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* 👁️ Fade feedback on choice */
+    .fade {
+      animation: fadePulse 0.6s ease;
+    }
+
+    @keyframes fadePulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <!-- INTRO -->
+    <div id="intro">
+      <h1>Happy Birthday SREESHA! 🎂</h1>
+
+      <p>
+        Wishing you a year filled with happiness, good health, and meaningful
+        moments that make you smile. I’ve genuinely enjoyed our conversations
+        as they’ve always felt positive and easy, and I appreciate the energy
+        you bring.
+      </p>
+
+      <p>
+        If you’re comfortable and happen to have some time today,
+        I’d really enjoy a simple walk and a good conversation with you.
+        No pressure at all 😊
+      </p>
+
+      
+      <p>— From Parth S.</p>
+
+      <div class="buttons">
+        <button onclick="goToQuestion()">Next</button>
+      </div>
+    </div>
+
+    <!-- QUESTION -->
+    <div id="question" class="hidden">
+      <p>Would you like to come for a walk and talk?</p>
+      <div class="buttons">
+        <button onclick="chooseYes()">Yes, I’d really love to</button>
+        <button class="secondary" onclick="chooseNo()">No, I have plans today</button>
+        <button class="secondary" onclick="goBackToIntro()">Back</button>
+      </div>
+    </div>
+
+    <!-- TIME -->
+    <div id="time" class="hidden">
+      <p>Please choose a time that works for you:</p>
+      <div class="buttons">
+        <button onclick="showLocation()">Afternoon</button>
+        <button onclick="showLocation()">Evening</button>
+        <button class="secondary" onclick="goBackToQuestion()">Back</button>
+      </div>
+    </div>
+
+    <!-- LOCATION -->
+    <div id="location" class="hidden">
+      <p>
+        Perfect 😊  
+        Let’s meet at <strong>Potters Fields Park</strong>.
+      </p>
+      <p>
+        📍 <a href="https://maps.app.goo.gl/Lhs6yUa3bEitPUcR8" target="_blank">
+          Open location on Google Maps
+        </a>
+      </p>
+      <div class="buttons">
+        <button class="secondary" onclick="goBackToTime()">Back</button>
+      </div>
+    </div>
+
+    <!-- NO RESPONSE -->
+    <div id="noResponse" class="hidden">
+      <p>
+        No problem, I appreciate your honesty.
+        We will catch up later.
+        Wishing you a very great day ahead.
+        Bye, take care 🌿
+      </p>
+      <div class="buttons">
+        <button class="close" onclick="closePage()">Close</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const intro = document.getElementById("intro");
+    const question = document.getElementById("question");
+    const time = document.getElementById("time");
+    const locationSec = document.getElementById("location");
+    const noResponse = document.getElementById("noResponse");
+    const card = document.querySelector(".card");
+
+    function hideAll() {
+      intro.classList.add("hidden");
+      question.classList.add("hidden");
+      time.classList.add("hidden");
+      locationSec.classList.add("hidden");
+      noResponse.classList.add("hidden");
+    }
+
+    function pulse() {
+      card.classList.add("fade");
+      setTimeout(() => card.classList.remove("fade"), 600);
+    }
+
+    function goToQuestion() {
+      pulse();
+      hideAll();
+      question.classList.remove("hidden");
+    }
+
+    function goBackToIntro() {
+      pulse();
+      hideAll();
+      intro.classList.remove("hidden");
+    }
+
+    function chooseYes() {
+      pulse();
+      hideAll();
+      time.classList.remove("hidden");
+    }
+
+    function chooseNo() {
+      pulse();
+      hideAll();
+      noResponse.classList.remove("hidden");
+    }
+
+    function goBackToQuestion() {
+      pulse();
+      hideAll();
+      question.classList.remove("hidden");
+    }
+
+    function showLocation() {
+      pulse();
+      hideAll();
+      locationSec.classList.remove("hidden");
+    }
+
+    function goBackToTime() {
+      pulse();
+      hideAll();
+      time.classList.remove("hidden");
+    }
+
+    function closePage() {
+      document.body.innerHTML =
+        "<h2 style='font-family:Lora; text-align:center; color:#1f3d2b;'>Take care 🌿</h2>";
+    }
+
+    /* 🕒 Live time updater */
+    function updateLiveTime() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      document.getElementById("liveTime").innerText = `Right now: ${timeStr}`;
+    }
+    updateLiveTime();
+    setInterval(updateLiveTime, 60000);
+  </script>
+
+</body>
+</html>
