@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>A Small Birthday Note</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pista1:#9fcbb3;
+      --pista2:#cfe8db;
+      --pista3:#eaf6f0;
+      --card:rgba(255,255,255,0.92);
+      --text:#1f3d2b;
+      --btn:#6fbf9a;
+      --btn2:#9fd6bd;
+    }
+
+    body{
+      margin:0;
+      height:100vh;
+      font-family:'Lora',serif;
+      background:linear-gradient(135deg,var(--pista1),var(--pista2),var(--pista3));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--text);
+      overflow:hidden;
+    }
+
+    /* 🎀 Birthday frame overlay */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:url("birthday-frame.png") center / contain no-repeat;
+      pointer-events:none;
+      z-index:1;
+    }
+
+    .card{
+      position:relative;
+      z-index:2;
+      width:min(92vw,680px);
+      height:min(92vh,760px);
+      padding:32px;
+      background:var(--card);
+      border-radius:24px;
+      text-align:center;
+      box-shadow:0 25px 50px rgba(0,0,0,0.15);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    h1,p{margin:12px 0}
+
+    .buttons{
+      margin-top:20px;
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    button{
+      padding:12px 26px;
+      border-radius:26px;
+      background:var(--btn);
+      color:#fff;
+      border:none;
+      font-size:1rem;
+      cursor:pointer;
+    }
+
+    button.secondary{background:var(--btn2);color:#1f3d2b}
+    button.close{background:#e07a7a}
+
+    .hidden{display:none}
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <!-- START STEPS -->
+  <div id="step1">
+    <p>Thank you for opening this link.</p>
+    <div class="buttons">
+      <button onclick="go('step1','step2')">Click here</button>
+    </div>
+  </div>
+
+  <div id="step2" class="hidden">
+    <p>I know you feel surprised while opening this.</p>
+    <div class="buttons">
+      <button onclick="go('step2','step3')">Click here</button>
+      <button class="secondary" onclick="go('step2','step1')">Back</button>
+    </div>
+  </div>
+
+  <div id="step3" class="hidden">
+    <p>I know it is taking longer than usual.</p>
+    <div class="buttons">
+      <button onclick="go('step3','step4')">Click here</button>
+      <button class="secondary" onclick="go('step3','step2')">Back</button>
+    </div>
+  </div>
+
+  <div id="step4" class="hidden">
+    <p>However, I have created this website for the first time.</p>
+    <div class="buttons">
+      <button onclick="go('step4','step5')">Click here</button>
+      <button class="secondary" onclick="go('step4','step3')">Back</button>
+    </div>
+  </div>
+
+  <div id="step5" class="hidden">
+    <p>Thank you for your patience.</p>
+    <div class="buttons">
+      <button onclick="go('step5','intro')">Click here</button>
+      <button class="secondary" onclick="go('step5','step4')">Back</button>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div id="intro" class="hidden">
+    <h1>Happy Birthday SREESHA! 🎂</h1>
+    <p>
+      Wishing you a year filled with happiness, good health, and meaningful moments
+      that make you smile. I’ve genuinely enjoyed our conversations and appreciate
+      the energy you bring.
+    </p>
+    <p>
+      If you’re comfortable and happen to have some time today,
+      I’d really enjoy a simple walk and a good conversation.
+      No pressure at all 😊
+    </p>
+    <p>— From Parth S.</p>
+    <div class="buttons">
+      <button onclick="go('intro','question')">Next</button>
+      <button class="secondary" onclick="go('intro','step5')">Back</button>
+    </div>
+  </div>
+
+  <!-- QUESTION -->
+  <div id="question" class="hidden">
+    <p>Would you like to go for a walk and talk?</p>
+    <div class="buttons">
+      <button onclick="go('question','time')">Yes, I’d like to</button>
+      <button class="secondary" onclick="go('question','noResponse')">No, I have plans today</button>
+      <button class="secondary" onclick="go('question','intro')">Back</button>
+    </div>
+  </div>
+
+  <!-- TIME -->
+  <div id="time" class="hidden">
+    <p>Please choose a time that works for you:</p>
+    <div class="buttons">
+      <button onclick="selectTime('Afternoon')">Afternoon</button>
+      <button onclick="selectTime('Evening')">Evening</button>
+      <button class="secondary" onclick="go('time','question')">Back</button>
+    </div>
+  </div>
+
+  <!-- LOCATION -->
+  <div id="location" class="hidden">
+    <p>Sounds good 😊 Let’s meet at <strong>Potters Fields Park</strong>.</p>
+    <p>
+      📍 <a href="https://maps.app.goo.gl/Lhs6yUa3bEitPUcR8" target="_blank">
+        Open location on Google Maps
+      </a>
+    </p>
+    <div class="buttons">
+      <button onclick="sendYes()">Confirm on WhatsApp</button>
+      <button class="secondary" onclick="go('location','time')">Back</button>
+    </div>
+  </div>
+
+  <!-- NO RESPONSE -->
+  <div id="noResponse" class="hidden">
+    <p>
+      No problem, I appreciate your honesty.<br>
+      We will catch up later.<br>
+      Wishing you a very great day ahead.<br>
+      Bye, take care 🌿
+    </p>
+    <div class="buttons">
+      <button class="close" onclick="sendNo()">Close</button>
+      <button class="secondary" onclick="go('noResponse','question')">Back</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const WHATSAPP = "447747797971";
+  let chosenTime = "";
+
+  function go(from,to){
+    document.getElementById(from).classList.add("hidden");
+    document.getElementById(to).classList.remove("hidden");
+  }
+
+  function selectTime(time){
+    chosenTime = time;
+    go('time','location');
+  }
+
+  function sendYes(){
+    const msg = `Hi Parth, ${chosenTime.toLowerCase()} works for me. Potters Fields Park sounds good 🙂`;
+    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,"_blank");
+  }
+
+  function sendNo(){
+    const msg = "Hi Parth, I won’t be able to join today, but thank you for asking 🙂";
+    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`,"_blank");
+  }
+</script>
+
+</body>
+</html>
